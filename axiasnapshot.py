@@ -10,13 +10,13 @@ srcParameters = ['SRC', 'PSNM', 'RTPE', 'RTPA', 'INGN', 'IO', 'RTPP', 'SHAB', 'N
 dstDict = {}
 dstParameters = ['DST', 'NAME', 'ADDR', 'NCHN', 'VMOD', 'OUGN']
 gpioDict = {}
-
+gpioParameters = ['GPIO', 'SRCA', 'GPO', 'GPI']
 
 tn.write("SET\n")
 setList = shlex.split(tn.read_until("\n"))
 for key, value in setDict.items():
 	for thisItem in setList:
-		if key in thisItem:
+		if thisItem.startswith(key + ":"):
 	 		setDict[key] = thisItem.split(':')[1]
 	 		continue
 
@@ -24,7 +24,7 @@ tn.write("VER\n")
 verList = shlex.split(tn.read_until("\n"))
 for key, value in verDict.items():
 	for thisItem in verList:
-		if thisItem.startswith(key):
+		if thisItem.startswith(key + ":"):
 	 		verDict[key] = thisItem.split(':')[1]
 	 		continue
 
@@ -39,7 +39,7 @@ for key, value in ipDict.items():
 tn.write("SRC\n")
 listOfAllSrcs = tn.read_until("END").split("\r\n")
 for thisLine in listOfAllSrcs:
-	if thisLine.startswith("SRC"):
+	if thisLine.startswith("SRC "):
 		thisLine = list(thisLine)
 		thisLine[3] = ":"
 		thisLine = ''.join(thisLine)
@@ -49,7 +49,7 @@ for thisLine in listOfAllSrcs:
 	thisSrcDict = dict.fromkeys(srcParameters)	
 	for key, value in thisSrcDict.items():
 		for thisItem in thisSrcList:
-			if thisItem.startswith(key):
+			if thisItem.startswith(key + ":"):
 				thisSrcDict[key] = thisItem.split(':')[1]
 				continue
 	srcDict[int(thisSrcDict["SRC"])] = thisSrcDict
@@ -57,7 +57,7 @@ for thisLine in listOfAllSrcs:
 tn.write("DST\n")
 listOfAllDsts = tn.read_until("END").split("\r\n")
 for thisLine in listOfAllDsts:
-	if thisLine.startswith("DST"):
+	if thisLine.startswith("DST "):
 		thisLine = list(thisLine)
 		thisLine[3] = ":"
 		thisLine = ''.join(thisLine)
@@ -73,23 +73,61 @@ for thisLine in listOfAllDsts:
 	dstDict[int(thisDstDict["DST"])] = thisDstDict
 
 tn.write("CFG GPO\n")
-gpoParameterList = tn.read_until("END") 
+gpioList = tn.read_until("END").split("\r\n")
+for thisLine in gpioList:
+	if thisLine.startswith("CFG GPO "):
+		thisLine = list(thisLine)
+		del thisLine[0:8]
+		thisLine.insert(0, ":")
+		thisLine.insert(0, "O")
+		thisLine.insert(0, "I")
+		thisLine.insert(0, "P")
+		thisLine.insert(0, "G")
+		thisLine = ''.join(thisLine)
+	else:
+		continue
+	thisGPOlist = shlex.split(thisLine)
+	thisGPIOdict = dict.fromkeys(gpioParameters)
+	for key, value in thisGPIOdict.items():
+		for thisItem in thisGPOlist:
+			if thisItem.startswith(key + ":"):
+				thisGPIOdict[key] = thisItem.split(':')[1]
+				continue
+	gpioDict[int(thisGPIOdict["GPIO"])] = thisGPIOdict
+
 tn.write("GPO\n")
-gpoList = tn.read_until("END")
+gpoList = tn.read_until("END").split("\r\n")
+for thisLine in gpoList:
+	if thisLine.startswith("GPO "):
+		thisLine = list(thisLine)
+		del thisLine[0:4]
+		thisLine = ''.join(thisLine).replace(" ", ":")
+	else:
+		continue
+	for key, value in gpioDict.items():
+		if thisLine.startswith(str(key) + ":"):
+			gpioDict[int(thisLine.split(':')[0])]["GPO"] = thisLine.split(':')[1]
+			continue
+
 tn.write("GPI\n")
-gpiList = tn.read_until("END")
+gpoList = tn.read_until("END").split("\r\n")
+for thisLine in gpoList:
+	if thisLine.startswith("GPI "):
+		thisLine = list(thisLine)
+		del thisLine[0:4]
+		thisLine = ''.join(thisLine).replace(" ", ":")
+	else:
+		continue
+	for key, value in gpioDict.items():
+		if thisLine.startswith(str(key) + ":"):
+			gpioDict[int(thisLine.split(':')[0])]["GPI"] = thisLine.split(':')[1]
+			continue
 
 tn.close()
 
-print "\n"
-print setDict
-print "\n"
-print verDict
-print "\n"
-print ipDict
-print "\n"
-print srcDict
-print "\n"
-print dstDict
-#print gpoDict
-#print gpiDict
+print '\n', setDict
+print '\n', verDict 
+print '\n', ipDict 
+print '\n', srcDict
+print '\n', dstDict  
+print '\n', gpioDict
