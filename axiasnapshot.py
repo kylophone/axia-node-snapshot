@@ -13,7 +13,7 @@ gpioDict = {}
 gpioParameters = ['GPIO', 'SRCA', 'GPO', 'GPI']
 
 tn.write("SET\n")
-setList = shlex.split(tn.read_until("\n"))
+setList = shlex.split(tn.read_until("\n", 2))
 for key, value in setDict.items():
 	for thisItem in setList:
 		if thisItem.startswith(key + ":"):
@@ -21,7 +21,7 @@ for key, value in setDict.items():
 	 		continue
 
 tn.write("VER\n")
-verList = shlex.split(tn.read_until("\n"))
+verList = shlex.split(tn.read_until("\n", 2))
 for key, value in verDict.items():
 	for thisItem in verList:
 		if thisItem.startswith(key + ":"):
@@ -29,7 +29,7 @@ for key, value in verDict.items():
 	 		continue
 
 tn.write("IP\n")
-ipList = shlex.split(tn.read_until("\n"))
+ipList = shlex.split(tn.read_until("\n", 2))
 for key, value in ipDict.items():
 	for thisIndex, thisItem in enumerate(ipList):
 		if thisItem == key:
@@ -37,7 +37,7 @@ for key, value in ipDict.items():
 			continue
 
 tn.write("SRC\n")
-listOfAllSrcs = tn.read_until("END").split("\r\n")
+listOfAllSrcs = tn.read_until("END", 2).split("\r\n")
 for thisLine in listOfAllSrcs:
 	if thisLine.startswith("SRC "):
 		thisLine = list(thisLine)
@@ -55,7 +55,7 @@ for thisLine in listOfAllSrcs:
 	srcDict[int(thisSrcDict["SRC"])] = thisSrcDict
 
 tn.write("DST\n")
-listOfAllDsts = tn.read_until("END").split("\r\n")
+listOfAllDsts = tn.read_until("END", 2).split("\r\n")
 for thisLine in listOfAllDsts:
 	if thisLine.startswith("DST "):
 		thisLine = list(thisLine)
@@ -73,7 +73,7 @@ for thisLine in listOfAllDsts:
 	dstDict[int(thisDstDict["DST"])] = thisDstDict
 
 tn.write("CFG GPO\n")
-gpioList = tn.read_until("END").split("\r\n")
+gpioList = tn.read_until("END", 2).split("\r\n")
 for thisLine in gpioList:
 	if thisLine.startswith("CFG GPO "):
 		thisLine = list(thisLine)
@@ -96,7 +96,7 @@ for thisLine in gpioList:
 	gpioDict[int(thisGPIOdict["GPIO"])] = thisGPIOdict
 
 tn.write("GPO\n")
-gpoList = tn.read_until("END").split("\r\n")
+gpoList = tn.read_until("END", 2).split("\r\n")
 for thisLine in gpoList:
 	if thisLine.startswith("GPO "):
 		thisLine = list(thisLine)
@@ -110,7 +110,7 @@ for thisLine in gpoList:
 			continue
 
 tn.write("GPI\n")
-gpoList = tn.read_until("END").split("\r\n")
+gpoList = tn.read_until("END", 2).split("\r\n")
 for thisLine in gpoList:
 	if thisLine.startswith("GPI "):
 		thisLine = list(thisLine)
