@@ -1,6 +1,9 @@
 import sys, telnetlib, shlex
 
-tn = telnetlib.Telnet(sys.argv[1], '93') #Takes one command-line input: IP of Node.
+try:
+	tn = telnetlib.Telnet(sys.argv[1], '93', 3) #Takes one command-line input: IP of Node.
+except:
+	sys.exit(1)
 
 setDict = dict.fromkeys(['LWS_802_1p_TAGE', 'LWS_802_1p_VLAN', 'LWS_802_1Q_PRIO', 'RTP_802_1p_TAGE', 'RTP_802_1p_VLAN', 'RTP_802_1Q_PRIO', 'LWCLK_PRIO', 'LWCLK_ADDR', 'IPCLK_ADDR', 'ADIP', 'NID', 'AESSYNC_PRI', 'AESSYNC_OUT', 'AESSYNCE', 'AESTX_AUTO', 'LWS_IP_TOS', 'RXBUFF', 'RTP_IP_TOS', 'LWCLK_MODE'])
 verDict = dict.fromkeys(['DEVN', 'NSRC', 'NDST', 'NGPI', 'NGPO', 'PRODUCT', 'MODEL', 'SVER'])
@@ -122,7 +125,6 @@ for thisLine in gpoList:
 		if thisLine.startswith(str(key) + ":"):
 			gpioDict[int(thisLine.split(':')[0])]["GPI"] = thisLine.split(':')[1]
 			continue
-
 tn.close()
 
 print '\n', setDict
