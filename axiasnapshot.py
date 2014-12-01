@@ -5,13 +5,43 @@ try:
 except:
 	sys.exit(1)
 
-setDict = dict.fromkeys(['LWS_802_1p_TAGE', 'LWS_802_1p_VLAN', 'LWS_802_1Q_PRIO', 'RTP_802_1p_TAGE', 'RTP_802_1p_VLAN', 'RTP_802_1Q_PRIO', 'LWCLK_PRIO', 'LWCLK_ADDR', 'IPCLK_ADDR', 'ADIP', 'NID', 'AESSYNC_PRI', 'AESSYNC_OUT', 'AESSYNCE', 'AESTX_AUTO', 'LWS_IP_TOS', 'RXBUFF', 'RTP_IP_TOS', 'LWCLK_MODE'])
-verDict = dict.fromkeys(['DEVN', 'NSRC', 'NDST', 'NGPI', 'NGPO', 'PRODUCT', 'MODEL', 'SVER'])
-ipDict = dict.fromkeys(['address', 'netmask', 'gateway', 'hostname'])
+setDict = dict.fromkeys(['LWS_802_1p_TAGE',
+                         'LWS_802_1p_VLAN',
+                         'LWS_802_1Q_PRIO',
+                         'RTP_802_1p_TAGE',
+                         'RTP_802_1p_VLAN',
+                         'RTP_802_1Q_PRIO',
+                         'LWCLK_PRIO',
+                         'LWCLK_ADDR',
+                         'IPCLK_ADDR',
+                         'ADIP',
+                         'NID',
+                         'AESSYNC_PRI',
+                         'AESSYNC_OUT',
+                         'AESSYNCE',
+                         'AESTX_AUTO',
+                         'LWS_IP_TOS',
+                         'RXBUFF',
+                         'RTP_IP_TOS',
+                         'LWCLK_MODE'])
+
+verDict = dict.fromkeys(['DEVN',
+                         'NSRC',
+                         'NDST',
+                         'NGPI',
+                         'NGPO',
+                         'PRODUCT',
+                         'MODEL',
+                         'SVER'])
+
+ipDict = dict.fromkeys(['address',
+                        'netmask',
+                        'gateway',
+                        'hostname'])
 srcDict = {}
-srcParameters = ['SRC', 'PSNM', 'RTPE', 'RTPA', 'INGN', 'IO', 'RTPP', 'SHAB', 'NCHN', 'PHPW', 'AESM']
+srcParameters = ['SRC','PSNM','RTPE','RTPA','INGN', 'IO','RTPP','SHAB','NCHN','PHPW','AESM']
 dstDict = {}
-dstParameters = ['DST', 'NAME', 'ADDR', 'NCHN', 'VMOD', 'OUGN']
+dstParameters = ['DST', 'NAME','ADDR','NCHN','VMOD','OUGN']
 gpioDict = {}
 gpioParameters = ['GPIO', 'SRCA', 'GPO', 'GPI']
 
@@ -49,7 +79,7 @@ for thisLine in listOfAllSrcs:
 	else:
 		continue
 	thisSrcList = shlex.split(thisLine)
-	thisSrcDict = dict.fromkeys(srcParameters)	
+	thisSrcDict = dict.fromkeys(srcParameters)
 	for key, value in thisSrcDict.items():
 		for thisItem in thisSrcList:
 			if thisItem.startswith(key + ":"):
@@ -67,7 +97,7 @@ for thisLine in listOfAllDsts:
 	else:
 		continue
 	thisDstList = shlex.split(thisLine)
-	thisDstDict = dict.fromkeys(dstParameters)	
+	thisDstDict = dict.fromkeys(dstParameters)
 	for key, value in thisDstDict.items():
 		for thisItem in thisDstList:
 			if thisItem.startswith(key):
@@ -128,8 +158,8 @@ for thisLine in gpoList:
 tn.close()
 
 print '\n', setDict
-print '\n', verDict 
-print '\n', ipDict 
+print '\n', verDict
+print '\n', ipDict
 print '\n', srcDict
-print '\n', dstDict  
+print '\n', dstDict
 print '\n', gpioDict
