@@ -1,7 +1,7 @@
 import sys, telnetlib, shlex
 
 try:
-	tn = telnetlib.Telnet(sys.argv[1], '93', 3) #Takes one command-line input: IP of Node.
+	tn = telnetlib.Telnet(sys.argv[1], '93', 3) #Node IP
 except:
 	sys.exit(1)
 
