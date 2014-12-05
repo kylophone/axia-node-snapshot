@@ -1,7 +1,11 @@
 axia-node-snapshot
 ==================
 
-Get a snapshot of internal state of an AXIA node. Reverse engineered LWRP. Parses responses and returns the data as JSON. There's lots of data available in each node, as you can see below.  
+Get a snapshot of internal state of an AXIA node. Reverse engineered LWRP. Parses responses and returns the data encoded as JSON (prints to stdout.) There's lots of data available in each node, as you can see in the example below. Takes one argument: Axia Node IP. 
+
+```bash
+python axianodesnapshot.py 10.27.37.121
+```
 
 ```bash
 {
