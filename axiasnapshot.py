@@ -1,4 +1,4 @@
-import sys, telnetlib, shlex
+import sys, telnetlib, shlex, json
 
 try:
 	tn = telnetlib.Telnet(sys.argv[1], '93', 3) #Node IP
@@ -157,9 +157,11 @@ for thisLine in gpoList:
 			continue
 tn.close()
 
-print '\n', setDict
-print '\n', verDict
-print '\n', ipDict
-print '\n', srcDict
-print '\n', dstDict
-print '\n', gpioDict
+bigDict = dict.fromkeys(["node", "source", "destination", "gpio"]) 
+
+bigDict["node"] = dict(setDict.items() + verDict.items() + ipDict.items())
+bigDict["source"] = srcDict
+bigDict["destination"] = dstDict
+bigDict["gpio"] = gpioDict
+
+print json.dumps(bigDict, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False)
