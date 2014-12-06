@@ -1,7 +1,7 @@
 axia-node-snapshot
 ==================
 
-Get a snapshot of internal state of an <a href = "http://www.axiaaudio.com/xnodes">Axia node</a>. Reverse engineered LWRP. Parses responses and returns the data encoded as JSON (prints to stdout.) There's lots of data available in each node, as you can see in the example below. Takes the node IP as an argument. 
+Get a snapshot of internal state of an <a href = "http://www.axiaaudio.com/xnodes">Axia node</a>. Reverse engineered LWRP. Parses LWRP responses and returns the data encoded as JSON (prints to stdout.) There's lots of data available in each node, as you can see in the example below. Takes the node IP as an argument. 
 
 ```bash
 python axianodesnapshot.py 10.27.37.121
