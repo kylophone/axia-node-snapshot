@@ -1,8 +1,8 @@
+#!/usr/bin/python
 import sys
 import telnetlib
 import shlex
 import json
-
 
 def get_set(tn):
 	setDict = dict.fromkeys(['LWS_802_1p_TAGE',
@@ -37,13 +37,13 @@ def get_set(tn):
 
 def get_ver(tn):
 	verDict = dict.fromkeys(['DEVN',
-                         'NSRC',
-                         'NDST',
-                         'NGPI',
-                         'NGPO',
-                         'PRODUCT',
-                         'MODEL',
-                         'SVER'])
+                         	 'NSRC',
+                         	 'NDST',
+                         	 'NGPI',
+                         	 'NGPO',
+                         	 'PRODUCT',
+                        	 'MODEL',
+                         	 'SVER'])
 
 	tn.write("VER\n")
 	verList = shlex.split(tn.read_until("\n", 2))
@@ -57,9 +57,9 @@ def get_ver(tn):
 
 def get_ip(tn):
 	ipDict = dict.fromkeys(['address',
-                        'netmask',
-                        'gateway',
-                        'hostname'])
+                        	'netmask',
+	                        'gateway',
+                        	'hostname'])
 
 	tn.write("IP\n")
 	ipList = shlex.split(tn.read_until("\n", 2))
@@ -74,16 +74,16 @@ def get_ip(tn):
 def get_src(tn):
 	srcDict = {}
 	srcParameters = ['SRC',
-					'PSNM',
-					'RTPE',
-					'RTPA',
-					'INGN',
-					'IO',
-					'RTPP',
-					'SHAB',
-					'NCHN',
-					'PHPW',
-					'AESM']
+			 'PSNM',
+			 'RTPE',
+			 'RTPA',
+			 'INGN',
+			 'IO',
+			 'RTPP',
+			 'SHAB',
+			 'NCHN',
+			 'PHPW',
+			 'AESM']
 
 	tn.write("SRC\n")
 	listOfAllSrcs = tn.read_until("END", 2).split("\r\n")
