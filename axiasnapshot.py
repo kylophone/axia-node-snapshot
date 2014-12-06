@@ -74,16 +74,16 @@ def get_ip(tn):
 def get_src(tn):
 	srcDict = {}
 	srcParameters = ['SRC',
-					 'PSNM',
-					 'RTPE',
-					 'RTPA',
-					 'INGN',
-					 'IO',
-					 'RTPP',
-					 'SHAB',
-					 'NCHN',
-					 'PHPW',
-					 'AESM']
+					'PSNM',
+					'RTPE',
+					'RTPA',
+					'INGN',
+					'IO',
+					'RTPP',
+					'SHAB',
+					'NCHN',
+					'PHPW',
+					'AESM']
 
 	tn.write("SRC\n")
 	listOfAllSrcs = tn.read_until("END", 2).split("\r\n")
