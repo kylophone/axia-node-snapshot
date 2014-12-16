@@ -13,7 +13,7 @@ python axianodesnapshot.py 10.27.37.121
         "1": {
             "ADDR": "239.192.0.5",
             "DST": "1",
-            "NAME": "Homer",
+            "NAME": "DST 1",
             "NCHN": "2",
             "OUGN": "0",
             "VMOD": "*"
