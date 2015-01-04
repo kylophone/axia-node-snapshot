@@ -7,7 +7,7 @@ Get a snapshot of internal state of an <a href = "http://www.axiaaudio.com/xnode
 python axianodesnapshot.py 10.27.37.121
 ```
 
-```bash
+```json
 {
     "destination": {
         "1": {
